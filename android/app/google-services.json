@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "227727588913",
+    "project_id": "socialfood-9631e",
+    "storage_bucket": "socialfood-9631e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227727588913:android:96af564fc41da9491cdf10",
+        "android_client_info": {
+          "package_name": "com.socialfood.splus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "227727588913-moftobj7s700tourua97h4n18utmrlek.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbTtx6jAcswmILy3RmpH3j2cUkuPgydy8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "227727588913-moftobj7s700tourua97h4n18utmrlek.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

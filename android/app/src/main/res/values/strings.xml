@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Food Social</string>
+    <string name="facebook_app_id">312603384640286</string>
+    <string name="facebook_client_token">61cebcb66fa7a4d0cdb4f5bbb3e8fb3e</string>
+</resources>
