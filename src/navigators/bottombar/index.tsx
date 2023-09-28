@@ -1,87 +1,132 @@
-import React from 'react';
-import {Linking, TouchableOpacity, View} from 'react-native';
-import {CurvedBottomBar} from 'react-native-curved-bottom-bar';
-import {scale} from 'react-native-size-scaling';
+import {Image, Pressable, View, Text} from 'react-native';
+import React, {useState} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '@screens/home';
-import SettingScreen from '@screens/setting';
-import {styles} from './styles';
+import {IconTabBar} from '@assets/images';
+import DiscoverScreen from '@screens/discover';
+import NotificationScreen from '@screens/notfication';
+import ProfileScreen from '@screens/profile';
+import UploadImageScreen from '@screens/uploadImage';
+const MainBottomTab = createBottomTabNavigator();
 
-export const tabBar = () => {
-  const _renderIcon = (routeName: string, selectedTab: string) => {
-    let icon = '';
+const tabBar = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [colorTab, setColorTab] = useState(0);
+  const TabArr = [
+    {
+      route: 'HomeScreen',
+      label: 'Home',
+      activeIcon: IconTabBar.home_active,
+      inActiveIcon: IconTabBar.home,
+      component: HomeScreen,
+    },
+    {
+      route: 'DiscoverScreen',
+      label: 'Discover',
+      activeIcon: IconTabBar.discover_active,
+      inActiveIcon: IconTabBar.discover,
+      component: DiscoverScreen,
+    },
+    {
+      route: 'UploadImage',
+      label: '',
+      type: Ionicons,
+      activeIcon: IconTabBar.photo,
+      inActiveIcon: IconTabBar.photo,
+      component: UploadImageScreen,
+    },
+    {
+      route: 'NotificationScreen',
+      label: 'Notification',
+      activeIcon: IconTabBar.noti_active,
+      inActiveIcon: IconTabBar.noti,
+      component: NotificationScreen,
+    },
+    {
+      route: 'Profile',
+      label: 'Profile',
+      type: Ionicons,
+      activeIcon: IconTabBar.profile_active,
+      inActiveIcon: IconTabBar.profile,
+      component: ProfileScreen,
+    },
+  ];
 
-    switch (routeName) {
-      case 'title1':
-        icon = 'ios-home-outline';
-        break;
-      case 'title2':
-        icon = 'settings-outline';
-        break;
-    }
+  const TabButton = props => {
+    const {item, onPress, accessibilityState} = props;
+    console.log(props);
+    const focused = accessibilityState.selected;
+    const onPressIcon = () => {
+      onPress();
+      if (item.route !== 'HomeScreen') {
+        setColorTab(1);
+      } else {
+        setColorTab(0);
+      }
+    };
 
     return (
-      <Ionicons
-        name={icon}
-        size={scale(25)}
-        color={routeName === selectedTab ? 'white' : '#8DEEEE'}
-      />
-    );
-  };
-  const renderTabBar = ({routeName, selectedTab, navigate}: any) => {
-    return (
-      <TouchableOpacity
-        onPress={() => navigate(routeName)}
+      <Pressable
+        onPress={onPressIcon}
         style={{
           flex: 1,
-          alignItems: 'center',
           justifyContent: 'center',
+          alignItems: 'center',
+          height: 60,
         }}>
-        {_renderIcon(routeName, selectedTab)}
-      </TouchableOpacity>
-    );
-  };
-
-  const linkChanelGithub = () => {
-    Linking.openURL(
-      'https://github.com/hoaphantn7604/react-native-template-components',
-    );
-  };
-
-  return (
-    <CurvedBottomBar.Navigator
-      style={styles.bottomBar}
-      height={55}
-      circleWidth={50}
-      bgColor="#79CDCD"
-      initialRouteName="title1"
-      borderTopLeftRight
-      renderCircle={() => (
-        <View style={styles.btnCircle}>
-          <TouchableOpacity
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Image
+            source={focused ? item.activeIcon : item.inActiveIcon}
+            style={{width: 32, height: 32}}
+          />
+          <Text
             style={{
-              flex: 1,
-              justifyContent: 'center',
-            }}
-            onPress={linkChanelGithub}>
-            <FontAwesome name={'github-alt'} color="white" size={scale(25)} />
-          </TouchableOpacity>
+              color: focused
+                ? colorTab === 1
+                  ? '#000'
+                  : '#FFF'
+                : colorTab === 1
+                ? 'rgba(138, 139, 143, 1)'
+                : 'rgba(255, 255, 255, 0.75)',
+              textAlign: 'center',
+              fontSize: 10,
+              fontWeight: '600',
+              lineHeight: 12,
+            }}>
+            {item.label}
+          </Text>
         </View>
-      )}
-      tabBar={renderTabBar}>
-      <CurvedBottomBar.Screen
-        options={{headerShown: false}}
-        name="title1"
-        position="LEFT"
-        component={() => <HomeScreen />}
-      />
-      <CurvedBottomBar.Screen
-        options={{headerShown: false}}
-        name="title2"
-        component={() => <SettingScreen />}
-        position="RIGHT"
-      />
-    </CurvedBottomBar.Navigator>
+      </Pressable>
+    );
+  };
+  console.log('render');
+  return (
+    <MainBottomTab.Navigator
+      screenOptions={({route}) => ({
+        tabBarHideOnKeyboard: true,
+        tabBarStyle: {
+          backgroundColor: colorTab === 0 ? '#000' : '#FFF',
+          height: 60,
+        },
+        headerShown: false,
+        tabBarShowLabel: false,
+      })}>
+      {TabArr.map((item, index) => {
+        return (
+          <MainBottomTab.Screen
+            name={item.route}
+            key={index + 'tab'}
+            component={item.component}
+            options={{
+              tabBarShowLabel: false,
+              tabBarButton: props => <TabButton {...props} item={item} />,
+            }}
+          />
+        );
+      })}
+    </MainBottomTab.Navigator>
   );
 };
+
+export default tabBar;

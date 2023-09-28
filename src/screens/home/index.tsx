@@ -20,8 +20,8 @@ import {styles} from './styles';
 // import FlatListComponent from '@components/FlatList';
 import {ICON, IMAGES} from '@assets/images';
 
-const {width, height} = Dimensions.get('window');
-
+const {width} = Dimensions.get('window');
+const height = Dimensions.get('window').height - 60;
 const images = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 interface IProps {}
@@ -272,7 +272,7 @@ const HomeScreen: React.FC<IProps> = _props => {
         <View
           style={{
             flex: 1,
-            height: Platform.OS === 'ios' ? height : height,
+            height: height,
             justifyContent: 'center',
             alignItems: 'center',
           }}>
