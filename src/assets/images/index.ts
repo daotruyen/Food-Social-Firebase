@@ -21,12 +21,16 @@ export const ICON = {
   comment: require('@assets/images/icons/ic-comment.png'),
   like: require('@assets/images/icons/ic-like.png'),
   heart: require('@assets/images/icons/ic-heart.png'),
+  heart_active: require('@assets/images/icons/ic-heart-active.png'),
   share: require('@assets/images/icons/ic-share.png'),
   avatar: require('@assets/images/icons/ic-avatar.png'),
   subscribe: require('@assets/images/icons/ic-subscribe.png'),
   search: require('@assets/images/icons/ic-search.png'),
   close: require('@assets/images/icons/ic-close.png'),
   not_found: require('@assets/images/icons/not-found.png'),
+  menu: require('@assets/images/icons/ic-menu.png'),
+  back: require('@assets/images/icons/ic-back.png'),
+  question: require('@assets/images/icons/ic-question.png'),
 };
 
 export const IconTabBar = {

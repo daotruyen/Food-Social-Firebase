@@ -7,8 +7,8 @@ import {
 } from 'react-native';
 import React from 'react';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import LikeComponent from './LikeComponent';
-import CommentComponent from './CommentComponent';
+import LikeComponent from './component/LikeComponent';
+import CommentComponent from './component/CommentComponent';
 
 interface IProps {}
 

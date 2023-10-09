@@ -287,7 +287,6 @@ const HomeScreen: React.FC<IProps> = _props => {
   };
 
   const onActiveTab = (index: number) => {
-    console.log(index);
     setActiveTab(index);
   };
 

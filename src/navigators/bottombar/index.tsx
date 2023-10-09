@@ -9,9 +9,8 @@ import NotificationScreen from '@screens/notfication';
 import ProfileScreen from '@screens/profile';
 import UploadImageScreen from '@screens/uploadImage';
 const MainBottomTab = createBottomTabNavigator();
-
-const tabBar = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+interface IProps {}
+const TabBar: React.FC<IProps> = _props => {
   const [colorTab, setColorTab] = useState(0);
   const TabArr = [
     {
@@ -55,7 +54,6 @@ const tabBar = () => {
 
   const TabButton = props => {
     const {item, onPress, accessibilityState} = props;
-    console.log(props);
     const focused = accessibilityState.selected;
     const onPressIcon = () => {
       onPress();
@@ -100,7 +98,6 @@ const tabBar = () => {
       </Pressable>
     );
   };
-  console.log('render');
   return (
     <MainBottomTab.Navigator
       screenOptions={({route}) => ({
@@ -129,4 +126,4 @@ const tabBar = () => {
   );
 };
 
-export default tabBar;
+export default TabBar;

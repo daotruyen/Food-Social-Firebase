@@ -16,7 +16,7 @@ import MultiSelectScreen from '@screens/theme/multiselect';
 import TextInputScreen from '@screens/theme/textinput';
 import AvatarScreen from '@screens/theme/avatar';
 import CheckboxScreen from '@screens/theme/checkbox';
-import tabBar from './bottombar/index';
+import TabBar from './bottombar/index';
 import HomeScreen from '@screens/home';
 
 export const navigationRef: React.RefObject<NavigationContainerRef<any>> =
@@ -26,17 +26,18 @@ const Stack = createNativeStackNavigator();
 function AppNavigator() {
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator initialRouteName="Main">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
           name="Main"
-          component={tabBar}
+          component={TabBar}
           options={{headerShown: false}}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Login"
           component={LoginScreen}
           options={{headerShown: false}}
         />
+        {/*
         <Stack.Screen
           name="Register"
           component={RegisterScreen}

@@ -1,19 +1,15 @@
-import {Button, globalLoading, Text} from '@components';
+import {Text} from '@components';
 import {useNavigation} from '@react-navigation/core';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {useFormik} from 'formik';
 import React, {useEffect} from 'react';
-import {ImageBackground, View} from 'react-native';
-import {TextInput} from 'react-native-element-textinput';
+import {Image, Pressable, TouchableNativeFeedback, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
-import SelectLocalComponent from '@components/SelectLocal';
-import {changeLanguageAction, selectMain} from '@reduxCore/main/slice';
-import {changeLanguage, t} from '@utils/locales/i18n';
+import {selectMain} from '@reduxCore/main/slice';
+import {changeLanguage} from '@utils/locales/i18n';
 import {styles} from './styles';
-import {IMAGES} from '@assets/images';
-import {AccessToken, LoginButton} from 'react-native-fbsdk-next';
-import auth from '@react-native-firebase/auth';
+import {ICON, IconTabBar} from '@assets/images';
+import {width} from 'react-native-size-scaling';
 
 interface IFormErrors {
   username?: string;
@@ -22,7 +18,7 @@ interface IFormErrors {
 
 interface IProps {}
 
-const RegisterScrenn: React.FC<IProps> = _props => {
+const RegisterScreen: React.FC<IProps> = _props => {
   const {navigate} = useNavigation<StackNavigationProp<any>>();
   const dispatch = useDispatch();
   const {locale} = useSelector(selectMain);
@@ -50,42 +46,70 @@ const RegisterScrenn: React.FC<IProps> = _props => {
     //   });
   }, [locale]);
 
-  const formik = useFormik({
-    initialValues: {
-      username: '',
-      password: '',
-    },
-    validate: values => {
-      const error: IFormErrors = {};
-      if (values.username.length === 0) {
-        error.username = t('errors:usernameMessage');
-      }
-
-      if (values.password.length === 0) {
-        error.password = t('errors:passwordMessage');
-      }
-
-      return error;
-    },
-    onSubmit: _values => {
-      globalLoading.show();
-      setTimeout(() => {
-        globalLoading.hide();
-        navigate('Main');
-      }, 1000);
-    },
-  });
-
-  const onChangeLanguage = (lang: 'vi' | 'en') => {
-    changeLanguage(lang);
-    dispatch(changeLanguageAction(lang));
-  };
-
   return (
     <View style={styles.container}>
-      <View />
+      <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
+        <Image source={ICON.back} />
+        <Image source={ICON.question} />
+      </View>
+      <View style={{alignItems: 'center', paddingTop: 40}}>
+        <Text
+          style={{
+            color: 'rgba(22, 24, 35, 1)',
+            fontSize: 24,
+            fontWeight: '700',
+          }}>
+          Đăng nhập
+        </Text>
+        <Text
+          style={{
+            color: 'rgba(0, 0, 0, 0.56)',
+            fontSize: 15,
+            marginTop: 12,
+            marginBottom: 32,
+          }}>
+          Quản lý tài khoản, kiểm tra thông báo, bình luận, v.v
+        </Text>
+        <View>
+          <Pressable
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderWidth: 1,
+              paddingHorizontal: 12,
+              paddingVertical: 5,
+              borderColor: 'rgba(22, 24, 35, .12)',
+              borderRadius: 8,
+              width: width - 48,
+            }}>
+            <Image
+              source={IconTabBar.profile}
+              style={{position: 'absolute', left: 12}}
+            />
+            <Text style={{textAlign: 'center', padding: 5}}>
+              Số điện thoại/ Email
+            </Text>
+          </Pressable>
+        </View>
+        <View>
+          <Text>
+            Bằng cách tiếp tục, bạn đồng ý với Điều khoản dịch vụ của chúng tôi
+            và thừa nhận rằng bạn đã đọc Chính sách Quyền riêng tư để tìm hiểu
+            cách chúng tôi thu thập, sử dụng và chia sẻ dữ liệu của bạn
+          </Text>
+        </View>
+        <View>
+          <Text>
+            Bạn không có tài khoản?{' '}
+            <TouchableNativeFeedback>
+              <Text style={{color: 'rgba(254, 44, 85, 1)'}}>Đăng ký</Text>
+            </TouchableNativeFeedback>
+          </Text>
+        </View>
+      </View>
     </View>
   );
 };
 
-export default RegisterScrenn;
+export default RegisterScreen;
